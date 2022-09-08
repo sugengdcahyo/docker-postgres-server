@@ -1,0 +1,20 @@
+version: '3'
+
+networks:
+  db_postgres_network:
+    name: ${NETWORK_NAME}
+    external: false
+
+services:
+  database:
+    image: 'postgres:latest'
+    ports:
+      - ${PUBLIC_PORT}:${PRIVATE_PORT}
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./data:/var/lib/postgresql/data/
+    networks:
+      - db_postgres_network
